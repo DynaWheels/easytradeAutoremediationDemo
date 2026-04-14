@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - v*
+      
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Move to Account Service
+      run: cd ./src/accountservice/
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag easyTrade:$(date +%s)
